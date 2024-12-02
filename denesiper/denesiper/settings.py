@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,11 +25,20 @@ SECRET_KEY = 'django-insecure-dm$*h702^8%l6o-gfk9-vvl0ozs20i5j^i*(30q#t5+hynemct
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# Add these lines to the bottom of the settings.py file:
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 ALLOWED_HOSTS = []
 
-
+STATIC_URL = '/static/'
 # Application definition
+STATICFILES_DIRS = [
+    BASE_DIR / "home/static",  # Your static directory
+    BASE_DIR / "static",
+
+]
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -37,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+     'home',  # Add your app here
 ]
 
 MIDDLEWARE = [
@@ -54,7 +65,11 @@ ROOT_URLCONF = 'denesiper.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+                    BASE_DIR / "home/templates",  # Correct path to your templates directory
+                    BASE_DIR / "templates",  # Another common templates directory
+
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
