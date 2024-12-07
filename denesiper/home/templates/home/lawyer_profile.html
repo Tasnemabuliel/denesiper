@@ -1,0 +1,31 @@
+{% extends 'home/base_generic.html' %}
+
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'home/styles_viewProfile.css' %}">
+    <link rel="stylesheet" href="{% static 'home/styles.css' %}">
+
+</head>
+
+{% block content %}
+<div class="profile-container">
+    <h1>{{ lawyer.first_name }} {{ lawyer.last_name }}'s Profile</h1>
+    <div class="profile">
+        <div class="profile-photo">
+            {% if lawyer.photo %}
+                <img src="{{ lawyer.photo.url }}" alt="{{ lawyer.first_name }}'s photo">
+            {% else %}
+                <p>No photo available</p>
+            {% endif %}
+        </div>
+        <div class="profile-details">
+            <p><strong>Specialization:</strong> {{ lawyer.specialization }}</p>
+            <p><strong>Location:</strong> {{ lawyer.location }}</p>
+            <p><strong>Phone Number:</strong> {{ lawyer.phone_number }}</p>
+            <p><strong>Email:</strong> <a href="mailto:{{ lawyer.email }}">{{ lawyer.email }}</a></p>
+            <p><strong>Bio:</strong> {{ lawyer.bio }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -35,10 +35,14 @@
     <section class="hero">
         <div class="container">
             <h1>Find the Right Lawyer for Your Needs</h1>
-            <div class="search-bar">
-                <input type="text" placeholder="Search by name, location, or specialty">
+            <!-- Search Form -->
+            <form method="get" action="{% url 'lawyer-list' %}" class="search-bar">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Search by name" value="{{ request.GET.name }}">
+                <input type="text" name="specialization" placeholder="Search by specialization" value="{{ request.GET.specialization }}">
+                <input type="text" name="location" placeholder="Search by location" value="{{ request.GET.location }}">
                 <button type="submit">Search</button>
-            </div>
+            </form>
         </div>
     </section>
 
@@ -55,10 +59,14 @@
                             <p>No photo available</p>
                          {% endif %}
                        </div>
-                       <div class="card-content">
-                         <h3>{{ lawyer.first_name }} {{ lawyer.last_name }}</h3>
-                         <p>{{ lawyer.specialization }}</p>
-                       </div>
+                       <!-- Corrected URL link usage -->
+                       <a href="{% url 'lawyer_profile' lawyer.pk %}" class="card">
+                          <div class="card-content">
+                            <h3>{{ lawyer.first_name }} {{ lawyer.last_name }}</h3>
+                            <p>{{ lawyer.specialization }}</p>
+                            <p>{{ lawyer.location }}</p>
+                          </div>
+                        </a>
                    </div>
                 {% endfor %}
             </div>

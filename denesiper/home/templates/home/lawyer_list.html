@@ -1,0 +1,39 @@
+{% extends 'home/base_generic.html' %}
+
+{% block content %}
+<h1>Lawyers</h1>
+
+<!-- Search Form -->
+<form method="get" action="{% url 'lawyer-list' %}" class="search-bar">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Render the form fields -->
+    <button type="submit">Search</button>
+</form>
+
+<!-- Displaying Lawyers -->
+<section class="lawyer-list">
+    <div class="container">
+        <div class="lawyer-cards">
+            {% for lawyer in lawyers %}
+                <div class="card">
+                    <div class="card-image">
+                        {% if lawyer.photo %}
+                            <img src="{{ lawyer.photo.url }}" alt="{{ lawyer.first_name }}'s photo">
+                        {% else %}
+                            <p>No photo available</p>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'lawyer_profile' lawyer.pk %}" class="card">
+                        <div class="card-content">
+                            <h3>{{ lawyer.first_name }} {{ lawyer.last_name }}</h3>
+                            <p>{{ lawyer.specialization }}</p>
+                            <p>{{ lawyer.location }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
