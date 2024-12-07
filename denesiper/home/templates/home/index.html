@@ -1,0 +1,75 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Lawyer</title>
+    <link rel="stylesheet" href="{% static 'home/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="#">FindLawyer</a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="button-container">
+                <a href="{% url 'add-lawyer' %}" class="btn btn-primary">Add Lawyer</a>
+                <a href="{% url 'lawyer-list' %}" class="btn btn-outline">Lawyers List</a>
+            </div>
+        </div>
+    </header>
+    
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Find the Right Lawyer for Your Needs</h1>
+            <div class="search-bar">
+                <input type="text" placeholder="Search by name, location, or specialty">
+                <button type="submit">Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lawyer Cards -->
+    <section class="lawyer-list">
+        <div class="container">
+            <div class="lawyer-cards">
+                {% for lawyer in lawyers %}
+                   <div class="card">
+                       <div class="card-image">
+                         {% if lawyer.photo %}
+                            <img src="{{ lawyer.photo.url }}" alt="{{ lawyer.first_name }}'s photo">
+                         {% else %}
+                            <p>No photo available</p>
+                         {% endif %}
+                       </div>
+                       <div class="card-content">
+                         <h3>{{ lawyer.first_name }} {{ lawyer.last_name }}</h3>
+                         <p>{{ lawyer.specialization }}</p>
+                       </div>
+                   </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 FindLawyer. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,135 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9; /* Light background color */
+    color: #333;
+}
+
+/* Container */
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Header Styles */
+header {
+    background-color: #2563eb; /* Primary blue color */
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.logo a {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase; /* Uppercase logo text for modern look */
+    letter-spacing: 2px;
+}
+
+/* Navbar Styling */
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Center the nav links */
+    align-items: center;
+    gap: 25px;
+}
+
+nav ul li {
+    position: relative;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 25px; /* Rounded links for a modern feel */
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a:focus {
+    background-color: #1d4ed8; /* Slightly darker blue on hover */
+    color: white;
+    transform: scale(1.05); /* Slight scale on hover for effect */
+}
+
+/* Active Link Indicator */
+nav ul li a.active {
+    background-color: #1d4ed8; /* Active link background */
+    color: white;
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Button Styles */
+.btn {
+    padding: 12px 25px;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 25px; /* Rounded buttons */
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #2563eb; /* Blue button */
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8; /* Darker blue on hover */
+}
+
+.btn-outline {
+    border: 2px solid #2563eb;
+    color: #2563eb;
+    background-color: transparent;
+}
+
+.btn-outline:hover {
+    background-color: #2563eb;
+    color: white;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #2563eb; /* Blue footer */
+    color: white;
+    padding: 20px;
+    margin-top: 40px;
+    text-align: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
