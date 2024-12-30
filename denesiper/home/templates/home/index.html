@@ -23,10 +23,6 @@
                     <li><a href="#">Contact</a></li>
                 </ul>
             </nav>
-            <div class="button-container">
-                <a href="{% url 'add-lawyer' %}" class="btn btn-primary">Add Lawyer</a>
-                <a href="{% url 'lawyer-list' %}" class="btn btn-outline">Lawyers List</a>
-            </div>
         </div>
     </header>
     
@@ -41,8 +37,12 @@
                 <input type="text" name="name" placeholder="Search by name" value="{{ request.GET.name }}">
                 <input type="text" name="specialization" placeholder="Search by specialization" value="{{ request.GET.specialization }}">
                 <input type="text" name="location" placeholder="Search by location" value="{{ request.GET.location }}">
+                <input type="number" step="0.1" name="min_rating" placeholder="Minimum Rating" value="{{ request.GET.min_rating }}">
+                <input type="number" step="0.01" name="max_price" placeholder="Maximum Price" value="{{ request.GET.max_price }}">
                 <button type="submit">Search</button>
             </form>
+            
+            
         </div>
     </section>
 

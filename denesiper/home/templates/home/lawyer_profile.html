@@ -1,3 +1,4 @@
+
 {% extends 'home/base_generic.html' %}
 
 {% load static %}
@@ -24,8 +25,32 @@
             <p><strong>Location:</strong> {{ lawyer.location }}</p>
             <p><strong>Phone Number:</strong> {{ lawyer.phone_number }}</p>
             <p><strong>Email:</strong> <a href="mailto:{{ lawyer.email }}">{{ lawyer.email }}</a></p>
-            <p><strong>Bio:</strong> {{ lawyer.bio }}</p>
+            <p><strong>Average Rating:</strong> {{ lawyer.average_rating|default:"Not rated yet" }}</p>
         </div>
+    </div>
+
+    <div class="reviews-section">
+        <h2>Reviews</h2>
+        {% if reviews %}
+            {% for review in reviews %}
+                <div class="review">
+                    <p><strong>{{ review.user.username }}</strong> rated {{ review.rating }} stars</p>
+                    <p>{{ review.comment }}</p>
+                    <p><em>{{ review.created_at }}</em></p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No reviews yet. Be the first to review!</p>
+        {% endif %}
+    </div>
+
+    <div class="add-review">
+        <h2>Add Your Review</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit Review</button>
+        </form>
     </div>
 </div>
 {% endblock %}
