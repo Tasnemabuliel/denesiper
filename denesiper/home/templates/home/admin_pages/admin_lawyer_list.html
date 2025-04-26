@@ -1,0 +1,38 @@
+{% extends 'home/base_generic.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Admin Panel - Lawyers</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Specialization</th>
+                <th>Location</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Rating</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for lawyer in lawyers %}
+            <tr>
+                <td>{{ lawyer.first_name }}</td>
+                <td>{{ lawyer.last_name }}</td>
+                <td>{{ lawyer.specialization }}</td>
+                <td>{{ lawyer.location }}</td>
+                <td>{{ lawyer.email }}</td>
+                <td>{{ lawyer.phone_number }}</td>
+                <td>{{ lawyer.rating }}</td>
+                <td>
+                    <a href="{% url 'admin_lawyer_edit' lawyer.pk %}">Edit</a> |
+                    <a href="{% url 'admin_lawyer_delete' lawyer.pk %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

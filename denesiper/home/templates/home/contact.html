@@ -1,0 +1,123 @@
+{% extends 'home/base_generic.html' %}
+{% load static %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+<div class="contact-container">
+    <h1>צרו קשר</h1>
+    <p>נשמח לשמוע מכם! אתם מוזמנים לפנות אלינו לכל שאלה, הצעה או בקשה.</p>
+    
+    <div class="contact-info">
+        <div class="info-item">
+            <h3>טלפון:</h3>
+            <p>+972-50-{{ random_number }}</p>
+        </div>
+        <div class="info-item">
+            <h3>אימייל:</h3>
+            <p><a href="mailto:info{{ random_number }}@findlawyer.com">info{{ random_number }}@findlawyer.com</a></p>
+        </div>
+        <div class="info-item">
+            <h3>כתובת:</h3>
+            <p>תל אביב, ישראל</p>
+        </div>
+    </div>
+
+    <h2>שלחו לנו הודעה</h2>
+    <form method="post" action="#">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">שם מלא</label>
+            <input type="text" id="name" name="name" placeholder="הכנס את שמך" required>
+        </div>
+        <div class="form-group">
+            <label for="email">אימייל</label>
+            <input type="email" id="email" name="email" placeholder="your-email@example.com" required>
+        </div>
+        <div class="form-group">
+            <label for="message">הודעה</label>
+            <textarea id="message" name="message" placeholder="הכנס את הודעתך" rows="5" required></textarea>
+        </div>
+        <button type="submit">שלח הודעה</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_head %}
+<style>
+    .contact-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .contact-container h1 {
+        text-align: center;
+        color: #007bff;
+        margin-bottom: 20px;
+    }
+    .contact-container p {
+        text-align: center;
+        color: #555;
+        font-size: 1.1rem;
+    }
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin: 20px 0;
+    }
+    .info-item {
+        text-align: center;
+    }
+    .info-item h3 {
+        margin: 0;
+        color: #333;
+    }
+    .info-item p {
+        margin: 5px 0;
+        color: #555;
+    }
+    .info-item a {
+        color: #007bff;
+        text-decoration: none;
+    }
+    .info-item a:hover {
+        text-decoration: underline;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+    input, textarea {
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    button {
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}

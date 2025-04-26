@@ -1,65 +1,101 @@
 {% extends 'home/base_generic.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% block title %}Find a Lawyer{% endblock %}
-    <link rel="stylesheet" href="{% static 'home/styles.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-</head>
-<body>
-    {% block content %}
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>Find the Right Lawyer for Your Needs</h1>
-            <!-- Search Form -->
-            <form method="get" action="{% url 'lawyer-list' %}" class="search-bar">
-                {% csrf_token %}
-                <input type="text" name="name" placeholder="Search by name" value="{{ request.GET.name }}">
-                <input type="text" name="specialization" placeholder="Search by specialization" value="{{ request.GET.specialization }}">
-                <input type="text" name="location" placeholder="Search by location" value="{{ request.GET.location }}">
-                <button type="submit">Search</button>
-            </form>
-        </div>
-    </section>
+{% block title %}Our Lawyers{% endblock %}
 
-    <!-- Lawyer Cards -->
-    <section class="lawyer-list">
-        <div class="container">
-            <div class="lawyer-cards">
-                {% for lawyer in lawyers %}
-                   <div class="card">
-                       <div class="card-image">
-                         {% if lawyer.photo %}
-                            <img src="{{ lawyer.photo.url }}" alt="{{ lawyer.first_name }}'s photo">
-                         {% else %}
-                            <p>No photo available</p>
-                         {% endif %}
-                       </div>
-                       <!-- Corrected URL link usage -->
-                       <a href="{% url 'lawyer_profile' lawyer.pk %}" class="card">
-                          <div class="card-content">
-                            <h3>{{ lawyer.first_name }} {{ lawyer.last_name }}</h3>
-                            <p>{{ lawyer.specialization }}</p>
-                            <p>{{ lawyer.location }}</p>
-                          </div>
-                        </a>
-                   </div>
-                {% endfor %}
+{% block content %}
+<div class="container">
+    <h2>Find the Right Lawyer for Your Needs</h2>
+    <form method="get" action="{% url 'lawyer-list' %}" class="search-bar">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Search by name" value="{{ request.GET.name }}">
+        <input type="text" name="specialization" placeholder="Search by specialization" value="{{ request.GET.specialization }}">
+        <input type="text" name="location" placeholder="Search by location" value="{{ request.GET.location }}">
+        <input type="number" step="0.1" name="min_rating" placeholder="Minimum Rating" value="{{ request.GET.min_rating }}">
+        <input type="number" step="0.01" name="max_price" placeholder="Maximum Price" value="{{ request.GET.max_price }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="lawyer-cards">
+        {% for lawyer in lawyers %}
+        <div class="card">
+            <div class="card-image">
+                {% if lawyer.photo %}
+                <img src="{{ lawyer.photo.url }}" alt="{{ lawyer.first_name }} {{ lawyer.last_name }}">
+                {% else %}
+                <img src="{% static 'home/default-avatar.png' %}" alt="Default avatar">
+                {% endif %}
+            </div>
+            <div class="card-content">
+                <h3>{{ lawyer.first_name }} {{ lawyer.last_name }}</h3>
+                <p><strong>Specialization:</strong> {{ lawyer.specialization }}</p>
+                <p><strong>Location:</strong> {{ lawyer.location }}</p>
+                <p><strong>Rating:</strong> {{ lawyer.rating }}</p>
+                <p><strong>Price:</strong> ${{ lawyer.price_range }}</p>
+                <a href="{% url 'lawyer_profile' lawyer.pk %}" class="view-profile-btn">View Profile</a>
             </div>
         </div>
-    </section>
-    {% endblock %}
+        {% endfor %}
+        {% if not lawyers %}
+        <p>No lawyers match your search criteria.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
 
-    <!-- Footer -->
-    {% block footer %}
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 FindLawyer. All rights reserved.</p>
-        </div>
-    </footer>
-    {% endblock %}
-</body>
-</html>
+{% block extra_head %}
+<style>
+    .search-bar {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    .search-bar input, .search-bar button {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+    .search-bar button {
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+    }
+    .lawyer-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    .card {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    .card-image img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+    .card-content {
+        padding: 15px;
+        text-align: center;
+    }
+    .view-profile-btn {
+        background: #007bff;
+        color: white;
+        padding: 10px;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    .view-profile-btn:hover {
+        background: #0056b3;
+    }
+</style>
+{% endblock %}
