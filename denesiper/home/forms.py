@@ -14,8 +14,11 @@ class LawyerForm(forms.ModelForm):
     class Meta:
         model = Lawyer
         fields = ['first_name', 'last_name', 'specialization', 'location', 'photo', 'rating', 'price_range', 'years_of_experience', 'phone_number', 'email']
-    location = forms.CharField(max_length=100, required=True, label="Location")
-
+        labels = {
+        'location': 'Location',
+        'phone_number': 'Phone Number',
+        'email': 'Email',
+    }
 
 class LawyerSearchForm(forms.Form):
     name = forms.CharField(required=False, label='Search by Name')

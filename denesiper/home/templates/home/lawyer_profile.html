@@ -133,10 +133,39 @@
             <h1>{{ lawyer.first_name }} {{ lawyer.last_name }}</h1>
             <p><strong>Specialization:</strong> {{ lawyer.specialization }}</p>
             <p><strong>Location:</strong> {{ lawyer.location }}</p>
+            <div style="margin-top: 20px;">
+                <strong>Office Location on Map:</strong>
+                <iframe
+                    width="100%"
+                    height="300"
+                    style="border:0; border-radius: 10px; margin-top: 10px;"
+                    loading="lazy"
+                    allowfullscreen
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyANG4pLjpjQLkbdFgKMjXa5jH90Ey-MZDw&q={{ lawyer.location|urlencode }}">
+                </iframe>
+                <div style="margin-top: 10px;">
+                    <a href="https://www.google.com/maps/dir/?api=1&destination={{ lawyer.location|urlencode }}" 
+                       target="_blank"
+                       style="display: inline-block; padding: 8px 16px; background-color: #28a745; color: white; border-radius: 5px; text-decoration: none;">
+                        📍 נווט למשרד עם Google Maps
+                    </a>
+                </div>
+                
+            </div>
+            
+            
             <p><strong>Phone:</strong> {{ lawyer.phone_number|default:"Not available" }}</p>
             <p><strong>Email:</strong> <a href="mailto:{{ lawyer.email }}">{{ lawyer.email|default:"Not available" }}</a></p>
             <p><strong>Average Rating:</strong> {{ lawyer.average_rating|default:"Not rated yet" }}</p>
         </div>
+        {% if lawyer.phone_number %}
+    <a href="https://wa.me/{{ lawyer.phone_number }}" target="_blank" class="btn-whatsapp" aria-label="צור קשר בוואטסאפ">
+        <img src="{% static 'images/whatsapp_icon.png' %}" alt="סמל וואטסאפ">
+        יצירת קשר ב־WhatsApp
+    </a>
+{% endif %}
+
     </div>
 
     <!-- Reviews Section -->
@@ -171,6 +200,13 @@
             <button type="submit" class="btn-submit">Submit Review</button>
         </form>
     </div>
+    <p>
+        <strong>Location:</strong> 
+        <span style="color: #28a745; font-weight: bold;">
+            📍 {{ lawyer.location }}
+        </span>
+    </p>
+    
 </div>
 
 <style>
@@ -274,6 +310,29 @@
     .btn-submit:hover {
         background-color: #0056b3;
     }
+    .btn-whatsapp {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+        padding: 10px 15px;
+        background-color: #25D366;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 6px;
+        transition: background-color 0.3s;
+    }
+    
+    .btn-whatsapp img {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .btn-whatsapp:hover {
+        background-color: #1DA851;
+    }
+    
 </style>
 {% endblock %}
 

@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +9,13 @@
     <link rel="stylesheet" href="{% static 'home/styles.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <!-- Header -->
     <header>
         <div class="container">
             <div class="logo">
-                <a href="http://127.0.0.1:8000/">FindLawyer</a>
+                <a href="http://127.0.0.1:8000/" aria-label="דף הבית של FindLawyer">FindLawyer</a>
             </div>
             <nav>
                 <ul class="nav-links">
@@ -22,13 +23,10 @@
                     <li><a href="{% url 'aboutus' %}">About Us</a></li>
                     <li><a href="{% url 'contact' %}">Contact</a></li>
                     <a href="{% url 'admin_signin' %}" class="btn btn-admin">Admin</a>
-
-                    
                 </ul>
             </nav>
         </div>
     </header>
-    
 
     <!-- Hero Section -->
     <section class="hero">
@@ -53,21 +51,30 @@
             <h2>Featured Lawyers</h2>
             <div class="lawyer-cards">
                 {% for lawyer in lawyers %}
-                <div class="card">
+                <div class="card" tabindex="0" aria-label="כרטיס של עורך הדין {{ lawyer.first_name }} {{ lawyer.last_name }}">
                     <div class="card-image">
                         {% if lawyer.photo %}
-                        <img src="{{ lawyer.photo.url }}" alt="{{ lawyer.first_name }}'s photo">
+                        <img src="{{ lawyer.photo.url }}" alt="תמונה של {{ lawyer.first_name }} {{ lawyer.last_name }}">
                         {% else %}
                         <p>No photo available</p>
                         {% endif %}
                     </div>
-                    <a href="{% url 'lawyer_profile' lawyer.pk %}" class="card">
+                    <a href="{% url 'lawyer_profile' lawyer.pk %}" class="card" aria-label="מעבר לפרופיל של {{ lawyer.first_name }}">
                         <div class="card-content">
                             <h3>{{ lawyer.first_name }} {{ lawyer.last_name }}</h3>
                             <p>Specialization: {{ lawyer.specialization }}</p>
                             <p>Rating: {{ lawyer.rating }}</p>
                         </div>
                     </a>
+
+                    <!-- כפתור WhatsApp אם יש טלפון -->
+                    {% if lawyer.phone_number %}
+                    <div style="margin-top: 13px;">
+                        <a href="https://wa.me/{{ lawyer.phone_number }}" target="_blank" aria-label="צור קשר עם {{ lawyer.first_name }} בוואטסאפ">
+                            <img src="{% static 'images/whatsapp_icon.png' %}" alt="סמל וואטסאפ" style="width: 24px; height: 24px;">
+                        </a>
+                    </div>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </div>
@@ -77,7 +84,7 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2024 FindLawyer. All rights reserved.</p>
+            <p>&copy; 2024 FindLawyer. כל הזכויות שמורות.</p>
         </div>
     </footer>
 </body>
