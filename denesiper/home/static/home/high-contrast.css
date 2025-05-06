@@ -1,0 +1,15 @@
+body {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+  }
+  
+  a, button, input, select, label {
+    color: #ffffff !important;
+    background-color: #000000 !important;
+    border: 2px solid #ffffff !important;
+  }
+  
+  h1, h2, h3, h4 {
+    color: #ffff00 !important; /* أصفر للتباين العالي */
+  }
+  

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find a Lawyer</title>
+    <title>Find a Lawyer – Legal Matching Platform</title>
     <link rel="stylesheet" href="{% static 'home/styles.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
@@ -14,28 +14,26 @@
     <header>
         <div class="container">
             <div class="logo">
-                <a href="http://127.0.0.1:8000/">FindLawyer</a>
+                <a href="http://127.0.0.1:8000/" aria-label="Homepage">FindLawyer</a>
             </div>
             <nav>
                 <ul class="nav-links">
                     <li><a href="http://127.0.0.1:8000/">Home</a></li>
                     <li><a href="{% url 'aboutus' %}">About Us</a></li>
                     <li><a href="{% url 'contact' %}">Contact</a></li>
-                    <a href="{% url 'admin_signin' %}" class="btn btn-admin">Admin</a>
-
-                    
+                    <li><a href="{% url 'admin_signin' %}" class="btn btn-admin">Admin</a></li>
+                    <li><a href="javascript:void(0);" onclick="toggleContrast()" class="nav-link" aria-label="Toggle High Contrast Mode">High Contrast Mode</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-    
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <h1>Find the Right Lawyer for Your Needs</h1>
             <!-- Search Form -->
-            <form method="get" action="{% url 'lawyer-list' %}" class="search-bar">
+            <form method="get" action="{% url 'lawyer-list' %}" class="search-bar" role="search" aria-label="Search Lawyers">
                 {% csrf_token %}
                 <input type="text" name="name" placeholder="Search by name" value="{{ request.GET.name }}">
                 <input type="text" name="specialization" placeholder="Search by specialization" value="{{ request.GET.specialization }}">
@@ -53,7 +51,7 @@
             <h2>Featured Lawyers</h2>
             <div class="lawyer-cards">
                 {% for lawyer in lawyers %}
-                <div class="card">
+                <a href="{% url 'lawyer_profile' lawyer.pk %}" class="card" aria-label="View profile of {{ lawyer.first_name }} {{ lawyer.last_name }}">
                     <div class="card-image">
                         {% if lawyer.photo %}
                         <img src="{{ lawyer.photo.url }}" alt="{{ lawyer.first_name }}'s photo">
@@ -61,14 +59,12 @@
                         <p>No photo available</p>
                         {% endif %}
                     </div>
-                    <a href="{% url 'lawyer_profile' lawyer.pk %}" class="card">
-                        <div class="card-content">
-                            <h3>{{ lawyer.first_name }} {{ lawyer.last_name }}</h3>
-                            <p>Specialization: {{ lawyer.specialization }}</p>
-                            <p>Rating: {{ lawyer.rating }}</p>
-                        </div>
-                    </a>
-                </div>
+                    <div class="card-content">
+                        <h3>{{ lawyer.first_name }} {{ lawyer.last_name }}</h3>
+                        <p>Specialization: {{ lawyer.specialization }}</p>
+                        <p>Rating: {{ lawyer.rating }}</p>
+                    </div>
+                </a>
                 {% endfor %}
             </div>
         </div>
@@ -80,5 +76,23 @@
             <p>&copy; 2024 FindLawyer. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Toggle High Contrast -->
+    <script>
+        function toggleContrast() {
+            const head = document.getElementsByTagName('head')[0];
+            let existingLink = document.getElementById('contrast-style');
+
+            if (existingLink) {
+                existingLink.remove();
+            } else {
+                const contrastLink = document.createElement('link');
+                contrastLink.rel = 'stylesheet';
+                contrastLink.href = "{% static 'home/high-contrast.css' %}";
+                contrastLink.id = 'contrast-style';
+                head.appendChild(contrastLink);
+            }
+        }
+    </script>
 </body>
 </html>

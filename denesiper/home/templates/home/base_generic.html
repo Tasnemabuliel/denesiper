@@ -13,15 +13,22 @@
         <nav class="navbar">
             <div class="container">
                 <div class="logo">
-                    <a href="/">Find Lawyer</a>
+                    <a href="/"><h2>Find Lawyer</h2></a> <!-- כותרת ברמה 2 - לא העיקרית בדף -->
                 </div>
                 <ul class="nav-links">
                     <li><a href="/">Home</a></li>
                     <li><a href="http://127.0.0.1:8000/aboutus/">About</a></li>
                     <li><a href="/contact/">Contact</a></li>
+                    <li>
+                        <!-- ✅ زر وضع التباين العالي داخل الشريط -->
+                        <button onclick="toggleContrast()" style="padding: 6px 10px; background: none; border: 2px solid white; color: white; cursor: pointer;">
+                            High Contrast Mode♿️
+                        </button>
+                    </li>
                 </ul>
             </div>
         </nav>
+        
     </header>
 
     <main>
@@ -37,5 +44,24 @@
             
         </div>
     </footer>
+
+    <!-- ✅ JavaScript لتبديل وضع التباين -->
+<script>
+    function toggleContrast() {
+        const head = document.getElementsByTagName('head')[0];
+        let existingLink = document.getElementById('contrast-style');
+
+        if (existingLink) {
+            existingLink.remove(); // إلغاء التباين العالي
+        } else {
+            const contrastLink = document.createElement('link');
+            contrastLink.rel = 'stylesheet';
+            contrastLink.href = "{% static 'home/high-contrast.css' %}";  // ← تم التعديل هنا
+            contrastLink.id = 'contrast-style';
+            head.appendChild(contrastLink);
+        }
+    }
+</script>
+
 </body>
 </html>

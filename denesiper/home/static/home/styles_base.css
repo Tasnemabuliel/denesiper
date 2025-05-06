@@ -74,3 +74,10 @@ footer {
     margin: 0;
     font-size: 0.9rem;
 }
+.high-contrast {
+    background-color: #000 !important;
+    color: #FFF !important;
+}
+.high-contrast a {
+    color: #FF0 !important;
+}
