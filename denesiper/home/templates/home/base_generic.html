@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Project{% endblock %}</title>
+    <title>{% block title %}Find Lawyer{% endblock %}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'home/styles_base.css' %}">
     {% block extra_head %}{% endblock %}
@@ -13,55 +13,68 @@
         <nav class="navbar">
             <div class="container">
                 <div class="logo">
-                    <a href="/"><h2>Find Lawyer</h2></a> <!-- כותרת ברמה 2 - לא העיקרית בדף -->
+                    <a href="/" aria-label="Home"><h1>Find Lawyer</h1></a>
                 </div>
+                
+                <!-- 햄버거 메뉴 아이콘 (מובייל) -->
+                <button class="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
                 <ul class="nav-links">
                     <li><a href="/">Home</a></li>
-                    <li><a href="http://127.0.0.1:8000/aboutus/">About</a></li>
-                    <li><a href="/contact/">Contact</a></li>
+                    <li><a href="{% url 'aboutus' %}">About</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
                     <li>
-                        <!-- ✅ زر وضع التباين العالي داخل الشريط -->
-                        <button onclick="toggleContrast()" style="padding: 6px 10px; background: none; border: 2px solid white; color: white; cursor: pointer;">
-                            High Contrast Mode♿️
+                        <button onclick="toggleContrast()" class="contrast-btn" aria-pressed="false">
+                            High Contrast ♿️
                         </button>
                     </li>
                 </ul>
             </div>
         </nav>
-        
     </header>
 
     <main>
-        <div class="content-container">
-            {% block content %}
-            <!-- Page-specific content will go here -->
-            {% endblock %}
-        </div>
+        {% block content %}
+        <!-- Page-specific content will go here -->
+        {% endblock %}
     </main>
 
     <footer>
         <div class="footer-container">
-            
+            <p>&copy; {% now "Y" %} Find Lawyer. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- ✅ JavaScript لتبديل وضع التباين -->
-<script>
-    function toggleContrast() {
-        const head = document.getElementsByTagName('head')[0];
-        let existingLink = document.getElementById('contrast-style');
-
-        if (existingLink) {
-            existingLink.remove(); // إلغاء التباين العالي
-        } else {
-            const contrastLink = document.createElement('link');
-            contrastLink.rel = 'stylesheet';
-            contrastLink.href = "{% static 'home/high-contrast.css' %}";  // ← تم التعديل هنا
-            contrastLink.id = 'contrast-style';
-            head.appendChild(contrastLink);
+    <script>
+        function toggleContrast() {
+            document.body.classList.toggle('high-contrast');
+            const btn = document.querySelector('.contrast-btn');
+            const isPressed = btn.getAttribute('aria-pressed') === 'true';
+            btn.setAttribute('aria-pressed', !isPressed);
+            
+            // Save preference to localStorage
+            localStorage.setItem('highContrast', !isPressed);
         }
-    }
-</script>
-
+        
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', () => {
+            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', !isExpanded);
+            navLinks.classList.toggle('active');
+        });
+        
+        // Check for saved contrast preference
+        if (localStorage.getItem('highContrast') === 'true') {
+            document.body.classList.add('high-contrast');
+            document.querySelector('.contrast-btn').setAttribute('aria-pressed', 'true');
+        }
+    </script>
 </body>
 </html>

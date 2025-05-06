@@ -46,13 +46,14 @@
         </div>
     </section>
 
-    <!-- Featured Lawyers -->
-    <section class="featured-lawyers">
-        <div class="container">
-            <h2>Featured Lawyers</h2>
-            <div class="lawyer-cards">
-                {% for lawyer in lawyers %}
-                <a href="{% url 'lawyer_profile' lawyer.pk %}" class="card" aria-label="View profile of {{ lawyer.first_name }} {{ lawyer.last_name }}">
+<!-- Featured Lawyers -->
+<section class="featured-lawyers">
+    <div class="container">
+        <h2>Featured Lawyers</h2>
+        <div class="lawyer-cards">
+            {% for lawyer in lawyers %}
+            <div class="card">
+                <a href="{% url 'lawyer_profile' lawyer.pk %}" aria-label="View profile of {{ lawyer.first_name }} {{ lawyer.last_name }}">
                     <div class="card-image">
                         {% if lawyer.photo %}
                         <img src="{{ lawyer.photo.url }}" alt="תמונה של {{ lawyer.first_name }} {{ lawyer.last_name }}">
@@ -60,27 +61,26 @@
                         <p>No photo available</p>
                         {% endif %}
                     </div>
-                    <a href="{% url 'lawyer_profile' lawyer.pk %}" class="card" aria-label="מעבר לפרופיל של {{ lawyer.first_name }}">
-                        <div class="card-content">
-                            <h3>{{ lawyer.first_name }} {{ lawyer.last_name }}</h3>
-                            <p>Specialization: {{ lawyer.specialization }}</p>
-                            <p>Rating: {{ lawyer.rating }}</p>
-                        </div>
-                    </a>
-
-                    <!-- כפתור WhatsApp אם יש טלפון -->
-                    {% if lawyer.phone_number %}
-                    <div style="margin-top: 13px;">
-                        <a href="https://wa.me/{{ lawyer.phone_number }}" target="_blank" aria-label="צור קשר עם {{ lawyer.first_name }} בוואטסאפ">
-                            <img src="{% static 'images/whatsapp_icon.png' %}" alt="סמל וואטסאפ" style="width: 24px; height: 24px;">
-                        </a>
+                    <div class="card-content">
+                        <h3>{{ lawyer.first_name }} {{ lawyer.last_name }}</h3>
+                        <p>Specialization: {{ lawyer.specialization }}</p>
+                        <p>Rating: {{ lawyer.rating }}</p>
                     </div>
-                    {% endif %}
+                </a>
+
+                <!-- WhatsApp button if phone number exists -->
+                {% if lawyer.phone_number %}
+                <div class="whatsapp-button">
+                    <a href="https://wa.me/{{ lawyer.phone_number }}" target="_blank" aria-label="צור קשר עם {{ lawyer.first_name }} בוואטסאפ">
+                        <img src="{% static 'images/whatsapp_icon.png' %}" alt="סמל וואטסאפ">
+                    </a>
                 </div>
-                {% endfor %}
+                {% endif %}
             </div>
+            {% endfor %}
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Footer -->
     <footer>
