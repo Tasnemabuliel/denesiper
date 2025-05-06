@@ -138,10 +138,40 @@
             <h1>{{ lawyer.first_name }} {{ lawyer.last_name }}</h1>
             <p><strong>Specialization:</strong> {{ lawyer.specialization }}</p>
             <p><strong>Location:</strong> {{ lawyer.location }}</p>
+            <div style="margin-top: 20px;">
+                <strong>Office Location on Map:</strong>
+                <iframe
+                    width="100%"
+                    height="300"
+                    style="border:0; border-radius: 10px; margin-top: 10px;"
+                    loading="lazy"
+                    allowfullscreen
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyANG4pLjpjQLkbdFgKMjXa5jH90Ey-MZDw&q={{ lawyer.location|urlencode }}">
+                </iframe>
+                <div style="margin-top: 10px;">
+                    <a href="https://www.google.com/maps/dir/?api=1&destination={{ lawyer.location|urlencode }}" 
+                       target="_blank"
+                       style="display: inline-block; padding: 8px 16px; background-color: #28a745; color: white; border-radius: 5px; text-decoration: none;">
+                        📍 נווט למשרד עם Google Maps
+                        
+                    </a>
+                </div>
+                
+            </div>
+            
+            
             <p><strong>Phone:</strong> {{ lawyer.phone_number|default:"Not available" }}</p>
             <p><strong>Email:</strong> <a href="mailto:{{ lawyer.email }}">{{ lawyer.email|default:"Not available" }}</a></p>
             <p><strong>Average Rating:</strong> {{ lawyer.average_rating|default:"Not rated yet" }}</p>
         </div>
+        {% if lawyer.phone_number %}
+    <a href="https://wa.me/{{ lawyer.phone_number }}" target="_blank" class="btn-whatsapp" aria-label="צור קשר בוואטסאפ">
+        <img src="{% static 'images/whatsapp_icon.png' %}" alt="סמל וואטסאפ">
+        יצירת קשר ב־WhatsApp
+    </a>
+{% endif %}
+
     </div>
 
     <!-- Reviews Section -->
@@ -176,6 +206,138 @@
             <button type="submit" class="btn-submit">Submit Review</button>
         </form>
     </div>
+    <p>
+        <strong>Location:</strong> 
+        <span style="color: #28a745; font-weight: bold;">
+            📍 {{ lawyer.location }}
+        </span>
+    </p>
+    
 </div>
 
+<style>
+    .profile-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 20px;
+    }
+
+    .profile-header img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #007BFF;
+    }
+
+    .profile-info h1 {
+        margin: 0;
+        font-size: 2.2rem;
+        color: #007BFF;
+    }
+
+    .profile-info p {
+        margin: 5px 0;
+        font-size: 1rem;
+        color: #555;
+    }
+
+    .profile-info p strong {
+        color: #333;
+    }
+
+    .reviews-section {
+        margin-top: 30px;
+    }
+
+    .reviews-section h2 {
+        font-size: 1.5rem;
+        color: #007BFF;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 5px;
+    }
+
+    .review {
+        padding: 15px;
+        margin-bottom: 15px;
+        background: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+
+    .add-review {
+        margin-top: 30px;
+        padding: 20px;
+        background: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+
+    .add-review h2 {
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+        color: #007BFF;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .btn-submit {
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    .btn-submit:hover {
+        background-color: #0056b3;
+    }
+    .btn-whatsapp {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+        padding: 10px 15px;
+        background-color: #25D366;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 6px;
+        transition: background-color 0.3s;
+    }
+    
+    .btn-whatsapp img {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .btn-whatsapp:hover {
+        background-color: #1DA851;
+    }
+    
+</style>
 {% endblock %}
