@@ -151,7 +151,11 @@ def admin_lawyer_delete(request, pk):
         return redirect('admin_dashboard')
     return render(request, 'admin_pages/admin_lawyer_delete.html', {'lawyer': lawyer})
 
-
+def admin_lawyer_delete(request, lawyer_id):
+    lawyer = get_object_or_404(Lawyer, id=lawyer_id)
+    lawyer.delete()
+    messages.success(request, 'Lawyer deleted successfully.')
+    return redirect('admin_dashboard')  # update with your actual dashboard view name
 
 def admin_signin(request):
     if request.method == 'POST':
@@ -169,6 +173,16 @@ def admin_signin(request):
     
     return render(request, 'home/admin_signin.html')
 
+def edit_lawyer(request, lawyer_id):
+    lawyer = get_object_or_404(Lawyer, id=lawyer_id)
+    if request.method == 'POST':
+        form = LawyerForm(request.POST, instance=lawyer)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_lawyer_list')  # or wherever you want
+    else:
+        form = LawyerForm(instance=lawyer)
+    return render(request, 'home/edit_lawyer.html', {'form': form})
 
 @login_required
 def admin_dashboard(request):
