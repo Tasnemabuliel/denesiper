@@ -1,8 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
 {% extends 'home/base_generic.html' %}
 
 {% block content %}
 <div class="container">
     <h1>Admin Dashboard</h1>
+    
+    <h2>Manage Lawyers</h2>  <!-- Added subheading for better sectioning -->
+    
     <table>
         <thead>
             <tr>
@@ -14,6 +19,14 @@
                 <th>Actions</th>
             </tr>
         </thead>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
         <tbody>
             {% for lawyer in lawyers %}
             <tr>
@@ -23,8 +36,9 @@
                 <td>{{ lawyer.specialization }}</td>
                 <td>{{ lawyer.location }}</td>
                 <td>
-                    <a href="{% url 'admin_lawyer_edit' lawyer.id %}" class="btn btn-edit">Edit</a> |
+                    <a href="{% url 'edit_lawyer' lawyer.id %}" class="btn btn-edit">Edit</a>
                     <a href="{% url 'admin_lawyer_delete' lawyer.id %}" class="btn btn-delete">Delete</a>
+
                 </td>
             </tr>
             {% endfor %}
@@ -70,5 +84,15 @@
     .btn-delete:hover {
         background-color: #c82333;
     }
+    .messages {
+    list-style: none;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 5px solid #28a745;
+    border-radius: 3px;
+}
+
 </style>
 {% endblock %}

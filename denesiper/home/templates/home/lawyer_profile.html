@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 {% extends 'home/base_generic.html' %}
 
 {% load static %}
@@ -12,6 +14,7 @@
             padding: 0;
         }
 
+        /* Profile Container */
         .profile-container {
             max-width: 900px;
             margin: 40px auto;
@@ -21,6 +24,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+        /* Profile Header */
         .profile-header {
             display: flex;
             align-items: center;
@@ -58,6 +62,7 @@
             color: #333;
         }
 
+        /* Reviews Section */
         .reviews-section {
             margin-top: 30px;
         }
@@ -126,7 +131,7 @@
 
 {% block content %}
 <div class="profile-container">
-    <!-- Header Section -->
+    <!-- Profile Header Section -->
     <div class="profile-header">
         <img src="{% if lawyer.photo %}{{ lawyer.photo.url }}{% else %}{% static 'home/default-avatar.png' %}{% endif %}" alt="{{ lawyer.first_name }} {{ lawyer.last_name }}">
         <div class="profile-info">
@@ -336,5 +341,3 @@
     
 </style>
 {% endblock %}
-
-
