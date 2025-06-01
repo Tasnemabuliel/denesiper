@@ -1,6 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+    {% include 'home/navbar.html' %}
+
 <head>
+    <script>
+  const btn = document.getElementById('accessibilityBtn');
+  const menu = document.getElementById('accessibilityMenu');
+
+  if (btn && menu) {
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+  }
+
+  function toggleContrast() {
+    document.body.classList.toggle('high-contrast');
+  }
+
+  function increaseText() {
+    document.body.style.fontSize = 'larger';
+  }
+
+  function decreaseText() {
+    document.body.style.fontSize = 'smaller';
+  }
+
+  function resetStyles() {
+    document.body.classList.remove('high-contrast');
+    document.body.style.fontSize = '';
+  }
+</script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Lawyer</title>

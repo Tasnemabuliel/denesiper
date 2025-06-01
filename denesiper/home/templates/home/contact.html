@@ -1,12 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-{% extends 'home/base_generic.html' %}
+{% include 'home/navbar.html' %}
 {% load static %}
 
 {% block title %}Contact Us{% endblock %}
 
 {% block content %}
 <div class="contact-container">
+    <script>
+  const btn = document.getElementById('accessibilityBtn');
+  const menu = document.getElementById('accessibilityMenu');
+
+  if (btn && menu) {
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+  }
+
+  function toggleContrast() {
+    document.body.classList.toggle('high-contrast');
+  }
+
+  function increaseText() {
+    document.body.style.fontSize = 'larger';
+  }
+
+  function decreaseText() {
+    document.body.style.fontSize = 'smaller';
+  }
+
+  function resetStyles() {
+    document.body.classList.remove('high-contrast');
+    document.body.style.fontSize = '';
+  }
+</script>
+
     <h1>צרו קשר</h1>
     <p>נשמח לשמוע מכם! אתם מוזמנים לפנות אלינו לכל שאלה, הצעה או בקשה.</p>
     
@@ -17,7 +43,7 @@
         </div>
         <div class="info-item">
             <h3>אימייל:</h3>
-            <p><a href="mailto:info{{ random_number }}@findlawyer.com" aria-label="שלח אימייל">info{{ random_number }}@findlawyer.com</a></p>
+            <p><a href="mailto:info{{ random_number }}@findlawyer.com">info{{ random_number }}@findlawyer.com</a></p>
         </div>
         <div class="info-item">
             <h3>כתובת:</h3>
@@ -26,21 +52,21 @@
     </div>
 
     <h2>שלחו לנו הודעה</h2>
-    <form method="post" action="#" aria-labelledby="contact-form" aria-describedby="contact-form-description">
+    <form method="post" action="#">
         {% csrf_token %}
         <div class="form-group">
             <label for="name">שם מלא</label>
-            <input type="text" id="name" name="name" placeholder="הכנס את שמך" required aria-required="true" aria-label="הכנס את שמך">
+            <input type="text" id="name" name="name" placeholder="הכנס את שמך" required>
         </div>
         <div class="form-group">
             <label for="email">אימייל</label>
-            <input type="email" id="email" name="email" placeholder="your-email@example.com" required aria-required="true" aria-label="הכנס את כתובת האימייל שלך">
+            <input type="email" id="email" name="email" placeholder="your-email@example.com" required>
         </div>
         <div class="form-group">
             <label for="message">הודעה</label>
-            <textarea id="message" name="message" placeholder="הכנס את הודעתך" rows="5" required aria-required="true" aria-label="הכנס את הודעתך"></textarea>
+            <textarea id="message" name="message" placeholder="הכנס את הודעתך" rows="5" required></textarea>
         </div>
-        <button type="submit" aria-label="שלח את ההודעה">שלח הודעה</button>
+        <button type="submit">שלח הודעה</button>
     </form>
 </div>
 {% endblock %}

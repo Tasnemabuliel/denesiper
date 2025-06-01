@@ -1,80 +1,156 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Find Lawyer{% endblock %}</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'home/styles_base.css' %}">
-    {% block extra_head %}{% endblock %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Find Lawyer{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'home/styles_base.css' %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  {% block extra_head %}{% endblock %}
+  <style>
+    body.high-contrast {
+      background-color: #000 !important;
+      color: #fff !important;
+    }
+    body.high-contrast a,
+    body.high-contrast button,
+    body.high-contrast input,
+    body.high-contrast select {
+      background-color: #000 !important;
+      color: #fff !important;
+      border: 1px solid #fff !important;
+    }
+    body.high-contrast h1, h2, h3 {
+      color: #ffff00 !important;
+    }
+    .text-size-controls button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 8px;
+      margin-left: 3px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="container">
-                <div class="logo">
-                    <a href="/" aria-label="Home"><h1>Find Lawyer</h1></a>
-                </div>
-                
-                <!-- 햄버거 메뉴 아이콘 (מובייל) -->
-                <button class="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                
-                <ul class="nav-links">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="{% url 'aboutus' %}">About</a></li>
-                    <li><a href="{% url 'contact' %}">Contact</a></li>
-                    <li>
-                        <button onclick="toggleContrast()" class="contrast-btn" aria-pressed="false">
-                            High Contrast ♿️
-                        </button>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-
-    <main>
-        {% block content %}
-        <!-- Page-specific content will go here -->
-        {% endblock %}
-    </main>
-
-    <footer>
-        <div class="footer-container">
-            <p>&copy; {% now "Y" %} Find Lawyer. All rights reserved.</p>
+  <header>
+    <nav class="navbar">
+      <div class="container">
+        <div class="logo">
+          <a href="/" aria-label="Home"><h1>Find Lawyer</h1></a>
         </div>
-    </footer>
 
-    <script>
-        function toggleContrast() {
-            document.body.classList.toggle('high-contrast');
-            const btn = document.querySelector('.contrast-btn');
-            const isPressed = btn.getAttribute('aria-pressed') === 'true';
-            btn.setAttribute('aria-pressed', !isPressed);
-            
-            // Save preference to localStorage
-            localStorage.setItem('highContrast', !isPressed);
-        }
-        
-        // Mobile menu toggle
-        const menuToggle = document.querySelector('.mobile-menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        
-        menuToggle.addEventListener('click', () => {
-            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-            menuToggle.setAttribute('aria-expanded', !isExpanded);
-            navLinks.classList.toggle('active');
-        });
-        
-        // Check for saved contrast preference
-        if (localStorage.getItem('highContrast') === 'true') {
-            document.body.classList.add('high-contrast');
-            document.querySelector('.contrast-btn').setAttribute('aria-pressed', 'true');
-        }
-    </script>
+        <button class="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="{% url 'aboutus' %}">About</a></li>
+          <li><a href="{% url 'contact' %}">Contact</a></li>
+          <li class="text-size-controls">
+            <button onclick="increaseFontSize()" aria-label="הגדלת טקסט">A+</button>
+            <button onclick="resetFontSize()" aria-label="גודל רגיל">A</button>
+            <button onclick="decreaseFontSize()" aria-label="הקטנת טקסט">A-</button>
+          </li>
+          <li>
+            <button class="contrast-btn" onclick="toggleContrast()" aria-pressed="false" aria-label="מצב ניגודיות גבוהה">
+              🌓 Contrast
+            </button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="content-container">
+      {% block content %}
+      <!-- 🧑‍⚖️ דוגמה לתוכן עמוד -->
+      <section>
+        <h2>ברוכים הבאים לפלטפורמת Find Lawyer</h2>
+        <p>
+          כאן תוכלו למצוא עורך דין המתאים בדיוק לצרכים המשפטיים שלכם – לפי תחום התמחות, מיקום, מחיר ודירוג.
+        </p>
+        <ul>
+          <li>🔍 חיפוש לפי שם, תחום ומיקום</li>
+          <li>⭐ דירוגים וחוות דעת על עורכי דין</li>
+          <li>📞 שליחת הודעה ישירה דרך WhatsApp</li>
+        </ul>
+        <p>
+          השתמשו בכפתורים למעלה להגדלת טקסט או להפעלת ניגודיות גבוהה לשיפור נגישות. אנו כאן כדי לשרת אתכם בצורה הטובה ביותר 💼.
+        </p>
+      </section>
+      {% endblock %}
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <p>&copy; {% now "Y" %} Find Lawyer. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    let currentFontSize = 1;
+
+    function increaseFontSize() {
+      if (currentFontSize < 2) {
+        currentFontSize += 0.1;
+        document.body.style.fontSize = currentFontSize + "em";
+        localStorage.setItem("fontSize", currentFontSize);
+      }
+    }
+
+    function decreaseFontSize() {
+      if (currentFontSize > 0.8) {
+        currentFontSize -= 0.1;
+        document.body.style.fontSize = currentFontSize + "em";
+        localStorage.setItem("fontSize", currentFontSize);
+      }
+    }
+
+    function resetFontSize() {
+      currentFontSize = 1;
+      document.body.style.fontSize = "1em";
+      localStorage.removeItem("fontSize");
+    }
+
+    function toggleContrast() {
+      document.body.classList.toggle("high-contrast");
+      const btn = document.querySelector(".contrast-btn");
+      const isPressed = btn.getAttribute("aria-pressed") === "true";
+      btn.setAttribute("aria-pressed", !isPressed);
+      localStorage.setItem("highContrast", !isPressed);
+    }
+
+    const menuToggle = document.querySelector(".mobile-menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    if (menuToggle) {
+      menuToggle.addEventListener("click", () => {
+        const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+        menuToggle.setAttribute("aria-expanded", !isExpanded);
+        navLinks.classList.toggle("active");
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      if (localStorage.getItem("highContrast") === "true") {
+        document.body.classList.add("high-contrast");
+        const btn = document.querySelector(".contrast-btn");
+        if (btn) btn.setAttribute("aria-pressed", "true");
+      }
+
+      const savedSize = parseFloat(localStorage.getItem("fontSize"));
+      if (!isNaN(savedSize)) {
+        currentFontSize = savedSize;
+        document.body.style.fontSize = savedSize + "em";
+      }
+    });
+  </script>
 </body>
 </html>
