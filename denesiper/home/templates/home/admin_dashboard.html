@@ -1,6 +1,7 @@
+<!-- At top of each file [REQ-4] -->
 <!DOCTYPE html>
 <html lang="en">
-{% include 'home/navbar.html' %}
+{% extends 'home/base_generic.html' %}
 
 {% block content %}
 <div class="container">
@@ -35,6 +36,10 @@
     <h1>Admin Dashboard</h1>
     
     <h2>Manage Lawyers</h2>  <!-- Added subheading for better sectioning -->
+    <div style="margin-top: 20px;">
+        <a href="{% url 'add-lawyer' %}" class="btn btn-add">Add Lawyer</a>
+    </div>
+
     
     <table>
         <thead>
@@ -121,6 +126,18 @@
     border-left: 5px solid #28a745;
     border-radius: 3px;
 }
+.btn-add {
+    background-color: #17a2b8; /* Bootstrap info color */
+    color: white;
+    padding: 7px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.btn-add:hover {
+    background-color: #138496;
+}
+
 
 </style>
 {% endblock %}

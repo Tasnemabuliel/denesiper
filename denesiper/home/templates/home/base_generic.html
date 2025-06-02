@@ -1,21 +1,25 @@
 {% load static %}
-{% load static %}
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title %}Find Lawyer{% endblock %}</title>
+  <title>{% block title %}Find Lawyer ⚖️{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'home/styles_base.css' %}" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   {% block extra_head %}{% endblock %}
   <style>
+    /* COLOR CONTRAST VERIFICATION [REQ-2] */
     body.high-contrast {
       background-color: #000 !important;
       color: #fff !important;
     }
     body.high-contrast a,
-    body.high-contrast button,
+    /* In base_generic.html [REQ-5] */
+    body.high-contrast button{
+        border: 2px solid yellow !important; /* More visible focus */
+
+    }
     body.high-contrast input,
     body.high-contrast select {
       background-color: #000 !important;
@@ -33,6 +37,16 @@
       padding: 5px 8px;
       margin-left: 3px;
       cursor: pointer;
+    }
+    /* In base_generic.html [REQ-6] */
+    :focus {
+      outline: 3px solid #0d47a1;
+      outline-offset: 3px;
+    }
+
+    /* For buttons */
+    button:focus {
+      box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.5);
     }
     /* Unified navbar styles */
     header {
@@ -111,7 +125,7 @@
     <nav class="navbar">
       <div class="container">
         <div class="logo">
-          <a href="/" aria-label="Home">FindLawyer</a>
+          <a href="/" aria-label="Home">FindLawyer ⚖️</a>
         </div>
 
         <button class="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
@@ -122,7 +136,9 @@
           <li><a href="/">דף הבית</a></li>
           <li><a href="{% url 'aboutus' %}">עלינו</a></li>
           <li><a href="{% url 'contact' %}">צור קשר</a></li>
+          <li><a href="{% url 'admin_signin' %}" class="admin-link">מנהל</a></li>
           <li class="text-size-controls">
+            <!-- Accessibility controls [REQ-3] -->
             <button onclick="increaseFontSize()" aria-label="הגדלת טקסט">A+</button>
             <button onclick="resetFontSize()" aria-label="גודל רגיל">A</button>
             <button onclick="decreaseFontSize()" aria-label="הקטנת טקסט">A-</button>

@@ -39,6 +39,14 @@
     .benefits-list li {
         margin: 0.5rem 0;
         font-size: 1.1rem;
+        position: relative;
+        padding-right: 1.5rem;
+    }
+
+    .benefits-list li:before {
+        content: "✔️";
+        position: absolute;
+        right: 0;
     }
 
     .start-now {
@@ -60,20 +68,68 @@
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
+    .search-section {
+        padding: 2rem 1rem;
+        background-color: #fff;
+    }
+
+    .search-bar {
+        max-width: 900px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-bar input {
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+
+    .search-bar button {
+        grid-column: 1 / -1;
+        padding: 0.75rem;
+        background-color: #0d47a1;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .search-bar button:hover {
+        background-color: #1565c0;
+    }
+
     .featured-lawyers {
         padding: 2rem 0;
+        background-color: #f8f9fa;
     }
 
     .featured-lawyers .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 20px;
+        text-align: right;
+        direction: rtl;
+    }
+
+    .featured-lawyers h2 {
+        color: #0d47a1;
+        margin-bottom: 1.5rem;
     }
 
     .lawyer-cards {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
         margin-top: 1.5rem;
     }
 
@@ -82,11 +138,14 @@
         border-radius: 8px;
         overflow: hidden;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-align: right;
+        direction: rtl;
     }
 
     .card:hover {
         transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
     }
 
     .card-image {
@@ -98,25 +157,52 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover .card-image img {
+        transform: scale(1.05);
     }
 
     .card-content {
-        padding: 1rem;
+        padding: 1.5rem;
     }
 
     .card-content h3 {
         margin: 0 0 0.5rem 0;
         color: #0d47a1;
+        font-size: 1.25rem;
+    }
+
+    .card-content p {
+        margin: 0.5rem 0;
+        color: #555;
     }
 
     .whatsapp-button {
-        padding: 0.5rem;
+        padding: 0.75rem;
         text-align: center;
+        background-color: #25D366;
+        transition: background-color 0.3s;
+    }
+
+    .whatsapp-button:hover {
+        background-color: #128C7E;
+    }
+
+    .whatsapp-button a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
     }
 
     .whatsapp-button img {
-        width: 40px;
-        height: 40px;
+        width: 24px;
+        height: 24px;
+        margin-left: 0.5rem;
     }
 
     @media (max-width: 768px) {
@@ -127,247 +213,80 @@
         .lawyer-cards {
             grid-template-columns: 1fr;
         }
+
+        .search-bar {
+            grid-template-columns: 1fr;
+        }
     }
 </style>
 {% endblock %}
 
 {% block content %}
+<!-- Welcome Section -->
 <section class="welcome-section">
     <div class="welcome-container">
         <h2>✨ ברוכים הבאים לפלטפורמת עורכי הדין <span class="brand">FindLawyer</span></h2>
-        <p>
-            הפלטפורמה שתעזור לכם למצוא את עורך הדין המתאים ביותר לצרכים המשפטיים שלכם – בקלות, במהירות ובשקיפות.
-        </p>
-
+        <p>הפלטפורמה שתעזור לכם למצוא את עורך הדין המתאים ביותר לצרכים המשפטיים שלכם.</p>
         <ul class="benefits-list">
-            <li>✔️ גישה לעורכי דין עם דירוגים ועדכונים בזמן אמת</li>
-            <li>✔️ ממשק פשוט ונוח לשימוש</li>
-            <li>✔️ תמיכה מלאה בשפות שונות</li>
-            <li>✔️ אפשרויות נגישות מתקדמות (ניגודיות גבוהה, הגדלת טקסט ועוד)</li>
+            <li>גישה לעורכי דין עם דירוגים ועדכונים בזמן אמת</li>
+            <li>ממשק פשוט ונוח לשימוש</li>
+            <li>חיבור ישיר עם עורכי הדין בוואטסאפ</li>
+            <li>מגוון רחב של התמחויות משפטיות</li>
+            
         </ul>
-
         <div class="cta-box">
             🎯 <strong>התחילו עכשיו</strong> וצרו קשר עם עורך הדין המתאים ביותר עבורכם!
-<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find a Lawyer</title>
-
-    <!-- CSS רגיל -->
-    <link rel="stylesheet" href="{% static 'home/styles.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
-    <!-- CSS פנימי לניגודיות וטקסט -->
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            font-size: 1em;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-
-        * {
-            font-size: inherit;
-        }
-
-        header {
-            background-color: #0d47a1;
-            color: white;
-            padding: 1rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1rem;
-            list-style: none;
-            padding: 0;
-        }
-
-        .nav-links a,
-        .btn-contrast {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: inherit;
-        }
-
-        .btn-contrast {
-            background-color: #222;
-            padding: 0.4rem 0.6rem;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-        }
-
-        .text-size-controls button {
-            padding: 0.4rem 0.6rem;
-            margin-right: 5px;
-            font-size: inherit;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        main {
-            padding: 2rem;
-        }
-
-        footer {
-            background-color: #222;
-            color: white;
-            text-align: center;
-            padding: 1rem;
-        }
-
-        body.high-contrast {
-            background-color: #000 !important;
-            color: #fff !important;
-        }
-
-        body.high-contrast a,
-        body.high-contrast button,
-        body.high-contrast input,
-        body.high-contrast label {
-            background-color: #000 !important;
-            color: #fff !important;
-            border: 1px solid #fff !important;
-        }
-
-        body.high-contrast h1,
-        body.high-contrast h2,
-        body.high-contrast h3 {
-            color: #ffff00 !important;
-        }
-        .welcome-section {
-  background-color: #f2f6fc;
-  padding: 2.5rem 1rem;
-  border-top: 3px solid #0d47a1;
-}
-
-.welcome-container {
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: right;
-  direction: rtl;
-  font-family: 'Inter', sans-serif;
-}
-
-.welcome-container h2 {
-  font-size: 2rem;
-  color: #0d47a1;
-  margin-bottom: 1rem;
-}
-
-.welcome-container .brand {
-  color: #007bff;
-  font-weight: bold;
-}
-
-.benefits-list {
-  list-style: none;
-  padding: 0;
-  margin: 1.5rem 0;
-}
-
-.benefits-list li {
-  margin: 0.5rem 0;
-  font-size: 1.1rem;
-}
-
-.start-now {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #2e7d32;
-  margin-top: 1.5rem;
-}
-.cta-box {
-  background-color: #e0f2f1;
-  color: #004d40;
-  font-size: 1.25rem;
-  font-weight: 600;
-  padding: 1rem 1.5rem;
-  border-left: 6px solid #26a69a;
-  border-radius: 8px;
-  margin-top: 2rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="container">
-            <div class="logo">
-                <a href="http://127.0.0.1:8000/" aria-label="Homepage">FindLawyer</a>
-            </div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="http://127.0.0.1:8000/">דף הבית</a></li>
-                    <li><a href="{% url 'aboutus' %}">עלינו</a></li>
-                    <li><a href="{% url 'contact' %}">צור קשר</a></li>
-                    <li class="text-size-controls">
-                        <button onclick="increaseFontSize()">A+</button>
-                        <button onclick="resetFontSize()">A</button>
-                        <button onclick="decreaseFontSize()">A-</button>
-                    </li>
-                    <li><button id="contrast-toggle" class="btn-contrast">🌓 ניגודיות</button></li>
-                </ul>
-            </nav>
         </div>
-    </header>
+    </div>
+</section>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>Find the Right Lawyer for Your Needs</h1>
-            <!-- Search Form -->
-            <form method="get" action="{% url 'lawyer-list' %}" class="search-bar" role="search" aria-label="Search Lawyers">
-                {% csrf_token %}
-                <input type="text" name="name" placeholder="Search by name" value="{{ request.GET.name }}">
-                <input type="text" name="specialization" placeholder="Search by specialization" value="{{ request.GET.specialization }}">
-                <input type="text" name="location" placeholder="Search by location" value="{{ request.GET.location }}">
-                <input type="number" step="0.1" name="min_rating" placeholder="Minimum Rating" value="{{ request.GET.min_rating }}">
-                <input type="number" step="0.01" name="max_price" placeholder="Maximum Price" value="{{ request.GET.max_price }}">
-                <button type="submit">Search</button>
-            </form>
-        </div>
-    </section>
+<!-- Search Section -->
+<section class="search-section">
+    <div class="welcome-container">
+        <h2>חפש עורך דין</h2>
+        <form method="get" action="{% url 'lawyer-list' %}" class="search-bar">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="חיפוש לפי שם" value="{{ request.GET.name }}">
+            <input type="text" name="specialization" placeholder="חיפוש לפי מקצוע" value="{{ request.GET.specialization }}">
+            <input type="text" name="location" placeholder="חיפוש לפי מיקום" value="{{ request.GET.location }}">
+            <input type="number" step="0.1" name="min_rating" placeholder="דירוג מינימלי" value="{{ request.GET.min_rating }}">
+            <input type="number" step="0.01" name="max_price" placeholder="מחיר מקסימלי" value="{{ request.GET.max_price }}">
+            <button type="submit">חפש</button>
+        </form>
+    </div>
+</section>
 
-<!-- Featured Lawyers -->
+<!-- Featured Lawyers Section -->
 <section class="featured-lawyers">
     <div class="container">
-        <h2>Featured Lawyers</h2>
+        <h2>עורכי דין מומלצים</h2>
         <div class="lawyer-cards">
             {% for lawyer in lawyers %}
             <div class="card">
-                <a href="{% url 'lawyer_profile' lawyer.pk %}" aria-label="View profile of {{ lawyer.first_name }} {{ lawyer.last_name }}">
+                <a href="{% url 'lawyer_profile' lawyer.pk %}">
                     <div class="card-image">
                         {% if lawyer.photo %}
-                        <img src="{{ lawyer.photo.url }}" alt="תמונה של {{ lawyer.first_name }} {{ lawyer.last_name }}">
+                        <img src="{{ lawyer.photo.url }}" alt="{{ lawyer.first_name }} {{ lawyer.last_name }}">
+                        <!-- Add alt text [REQ-1] -->
                         {% else %}
-                        <p>No photo available</p>
+                        <img src="{% static 'images/lawyer_placeholder.jpg' %}" alt="No photo available">
+                        <!-- Add alt text [REQ-1] -->
                         {% endif %}
                     </div>
                     <div class="card-content">
                         <h3>{{ lawyer.first_name }} {{ lawyer.last_name }}</h3>
-                        <p>Specialization: {{ lawyer.specialization }}</p>
-                        <p>Rating: {{ lawyer.rating }}</p>
+                        <p>התמחות: {{ lawyer.specialization }}</p>
+                        <p>דירוג: {{ lawyer.rating }}</p>
+                        <p>מחיר ייעוץ: {{ lawyer.consultation_fee }} ש"ח</p>
                     </div>
                 </a>
-
-                <!-- WhatsApp button if phone number exists -->
                 {% if lawyer.phone_number %}
+                <!-- In lawyer_profile.html [REQ-8] -->
                 <div class="whatsapp-button">
-                    <a href="https://wa.me/{{ lawyer.phone_number }}" target="_blank" aria-label="צור קשר עם {{ lawyer.first_name }} בוואטסאפ">
-                        <img src="{% static 'images/whatsapp_icon.png' %}" alt="סמל וואטסאפ">
+                    <a href="https://wa.me/{{ lawyer.phone_number }}">
+                        שלח הודעה
+                        <img src="{% static 'images/whatsapp_icon.png' %}" alt="WhatsApp">
+                        <!-- Add alt text [REQ-1] -->
                     </a>
                 </div>
                 {% endif %}
@@ -376,30 +295,4 @@
         </div>
     </div>
 </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 FindLawyer. כל הזכויות שמורות.</p>
-        </div>
-    </footer>
-
-    <!-- Toggle High Contrast -->
-    <script>
-        function toggleContrast() {
-            const head = document.getElementsByTagName('head')[0];
-            let existingLink = document.getElementById('contrast-style');
-
-            if (existingLink) {
-                existingLink.remove();
-            } else {
-                const contrastLink = document.createElement('link');
-                contrastLink.rel = 'stylesheet';
-                contrastLink.href = "{% static 'home/high-contrast.css' %}";
-                contrastLink.id = 'contrast-style';
-                head.appendChild(contrastLink);
-            }
-        }
-    </script>
-</body>
-</html>
+{% endblock %}

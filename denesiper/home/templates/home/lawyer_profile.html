@@ -128,14 +128,17 @@
         }
     </style>
 </head>
+
 {% block content %}
 <div class="profile-container">
     <!-- Profile Header Section -->
     <div class="profile-header">
         <img src="{% if lawyer.photo %}{{ lawyer.photo.url }}{% else %}{% static 'home/default-avatar.png' %}{% endif %}" alt="{{ lawyer.first_name }} {{ lawyer.last_name }}">
+        <!-- Add alt text [REQ-1] -->
         <div class="profile-info">
             <h1>{{ lawyer.first_name }} {{ lawyer.last_name }}</h1>
             <p><strong>Specialization:</strong> {{ lawyer.specialization }}</p>
+            <!-- In lawyer_profile.html [REQ-7] -->
             <p><strong>Location:</strong> {{ lawyer.location }}</p>
             <div style="margin-top: 20px;">
                 <strong>Office Location on Map:</strong>
@@ -165,8 +168,10 @@
             <p><strong>Average Rating:</strong> {{ lawyer.average_rating|default:"Not rated yet" }}</p>
         </div>
         {% if lawyer.phone_number %}
+        <!-- In lawyer_profile.html [REQ-8] -->
     <a href="https://wa.me/{{ lawyer.phone_number }}" target="_blank" class="btn-whatsapp" aria-label="צור קשר בוואטסאפ">
         <img src="{% static 'images/whatsapp_icon.png' %}" alt="סמל וואטסאפ">
+        <!-- Add alt text [REQ-1] -->
         יצירת קשר ב־WhatsApp
     </a>
 {% endif %}
@@ -174,34 +179,20 @@
     </div>
 
     <!-- Reviews Section -->
-    <section class="reviews-section">
-    <h2 class="section-title">📝 חוות דעת על עורך הדין</h2>
-
-    <div class="review-list">
-        {% for review in reviews %}
-        <div class="review-card">
-            <p><strong>{{ review.user.username }}</strong> דירג {{ review.rating }} כוכבים</p>
-            <p>{{ review.comment }}</p>
-            <small>{{ review.date|date:"F j, Y, g:i a" }}</small>
-        </div>
-        {% endfor %}
+    <div class="reviews-section">
+        <h2>Reviews</h2>
+        {% if reviews %}
+            {% for review in reviews %}
+                <div class="review">
+                    <p><strong>{{ review.user.username }}</strong> rated {{ review.rating }} stars</p>
+                    <p>{{ review.comment }}</p>
+                    <p><em>{{ review.created_at }}</em></p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No reviews yet. Be the first to review!</p>
+        {% endif %}
     </div>
-
-    <div class="add-review-form">
-        <h3>הוסיפו חוות דעת משלכם ✍️</h3>
-        <form method="post">
-            {% csrf_token %}
-            <label for="rating">דירוג:</label>
-            {{ form.rating }}
-
-            <label for="comment">תגובה:</label>
-            {{ form.comment }}
-
-            <button type="submit">שלח חוות דעת</button>
-        </form>
-        <p class="location-note">📍 מיקום: {{ lawyer.location }}</p>
-    </div>
-</section>
 
     <!-- Add Review Section -->
     <div class="add-review">
@@ -227,6 +218,7 @@
     </p>
     
 </div>
+
 <style>
     .profile-container {
         max-width: 800px;
@@ -350,94 +342,6 @@
     .btn-whatsapp:hover {
         background-color: #1DA851;
     }
-    .reviews-section {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-.section-title {
-    text-align: center;
-    font-size: 1.8rem;
-    color: #1a237e;
-    margin-bottom: 25px;
-}
-
-.review-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.review-card {
-    background-color: white;
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 8px;
-}
-
-.review-card p {
-    margin: 5px 0;
-    color: #333;
-}
-
-.review-card small {
-    color: #666;
-    font-size: 0.85rem;
-}
-
-.add-review-form {
-    margin-top: 40px;
-    background: #ffffff;
-    border-top: 2px solid #007bff;
-    padding: 20px;
-    border-radius: 8px;
-}
-
-.add-review-form h3 {
-    color: #007bff;
-    margin-bottom: 15px;
-}
-
-.add-review-form label {
-    font-weight: bold;
-    display: block;
-    margin: 10px 0 5px;
-}
-
-.add-review-form textarea,
-.add-review-form select {
-    width: 100%;
-    padding: 8px;
-    font-size: 1rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.add-review-form button {
-    margin-top: 15px;
-    background-color: #007bff;
-    color: white;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.add-review-form button:hover {
-    background-color: #0056b3;
-}
-
-.location-note {
-    margin-top: 10px;
-    font-size: 0.95rem;
-    color: #4caf50;
-    font-weight: bold;
-}
-
+    
 </style>
 {% endblock %}

@@ -3,37 +3,222 @@
 
 {% block title %}Contact Us{% endblock %}
 
+{% block extra_head %}
+<style>
+    .contact-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        direction: rtl;
+        text-align: right;
+    }
+
+    .contact-container h1 {
+        color: #0d47a1;
+        margin-bottom: 1.5rem;
+        font-size: 2.2rem;
+        text-align: center;
+        font-weight: 700;
+    }
+
+    .contact-container h2 {
+        color: #0d47a1;
+        margin: 2rem 0 1.5rem;
+        font-size: 1.8rem;
+        font-weight: 600;
+    }
+
+    .contact-container p {
+        color: #444;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        text-align: center;
+    }
+
+    .contact-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+
+    .info-item {
+        background-color: #f5f9ff;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        border-right: 4px solid #0d47a1;
+        transition: transform 0.3s ease;
+    }
+
+    .info-item:hover {
+        transform: translateX(-5px);
+    }
+
+    .info-item h3 {
+        margin: 0 0 0.75rem 0;
+        color: #0d47a1;
+        font-size: 1.3rem;
+    }
+
+    .info-item p {
+        margin: 0;
+        text-align: right;
+        color: #555;
+        font-size: 1.1rem;
+    }
+
+    .info-item a {
+        color: #1976d2;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .info-item a:hover {
+        color: #0d47a1;
+        text-decoration: underline;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #333;
+        font-size: 1.1rem;
+    }
+
+    input, textarea {
+        padding: 0.75rem;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus, textarea:focus {
+        border-color: #0d47a1;
+        box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.2);
+        outline: none;
+    }
+
+    textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    button[type="submit"] {
+        padding: 0.75rem 1.5rem;
+        background-color: #0d47a1;
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        width: fit-content;
+        margin: 0.5rem 0;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #1565c0;
+    }
+
+    .accessibility-bar {
+        background-color: #f5f5f5;
+        padding: 0.75rem;
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .accessibility-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+        color: #333;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+    .accessibility-btn:hover {
+        background-color: #e0e0e0;
+    }
+
+    /* High contrast mode */
+    body.high-contrast {
+        background-color: #000 !important;
+        color: #fff !important;
+    }
+
+    body.high-contrast .contact-container {
+        background-color: #000 !important;
+        color: #fff !important;
+        border: 2px solid #fff;
+    }
+
+    body.high-contrast h1,
+    body.high-contrast h2,
+    body.high-contrast h3 {
+        color: #ffff00 !important;
+    }
+
+    body.high-contrast .info-item {
+        background-color: #222 !important;
+        border-color: #ffff00 !important;
+    }
+
+    body.high-contrast input,
+    body.high-contrast textarea,
+    body.high-contrast button {
+        background-color: #000 !important;
+        color: #fff !important;
+        border: 2px solid #fff !important;
+    }
+
+    body.high-contrast button:hover {
+        background-color: #333 !important;
+    }
+
+    @media (max-width: 768px) {
+        .contact-container {
+            padding: 1.5rem;
+            margin: 1rem;
+        }
+
+        .contact-info {
+            grid-template-columns: 1fr;
+        }
+
+        .contact-container h1 {
+            font-size: 1.8rem;
+        }
+
+        .contact-container h2 {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="contact-container">
-    <script>
-  const btn = document.getElementById('accessibilityBtn');
-  const menu = document.getElementById('accessibilityMenu');
-
-  if (btn && menu) {
-    btn.addEventListener('click', () => {
-      menu.classList.toggle('hidden');
-    });
-  }
-
-  function toggleContrast() {
-    document.body.classList.toggle('high-contrast');
-  }
-
-  function increaseText() {
-    document.body.style.fontSize = 'larger';
-  }
-
-  function decreaseText() {
-    document.body.style.fontSize = 'smaller';
-  }
-
-  function resetStyles() {
-    document.body.classList.remove('high-contrast');
-    document.body.style.fontSize = '';
-  }
-</script>
-
-    <h1>צרו קשר</h1>
     <h1>צור קשר</h1>
     <p>נשמח לשמוע מכם! אתם מוזמנים לפנות אלינו לכל שאלה, הצעה או בקשה.</p>
 
@@ -72,130 +257,21 @@
             <textarea id="message" name="message" rows="5" placeholder="הכנס את הודעתך" required aria-required="true"></textarea>
         </div>
         <button type="submit">שלח הודעה</button>
-        <button type="submit">שלח הודעה</button>
     </form>
 </div>
-{% endblock %}
-
-{% block extra_head %}
-<style>
-    .contact-container {
-        max-width: 800px;
-        margin: 40px auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .contact-container h1 {
-        text-align: center;
-        color: #007bff;
-        margin-bottom: 20px;
-    }
-
-    .contact-container p {
-        text-align: center;
-        color: #555;
-        font-size: 1.1rem;
-    }
-
-    .contact-info {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        margin: 20px 0;
-    }
-
-    .info-item {
-        text-align: center;
-    }
-
-    .info-item h3 {
-        margin: 0;
-        color: #333;
-    }
-
-    .info-item p {
-        margin: 5px 0;
-        color: #555;
-    }
-
-    .info-item a {
-        color: #007bff;
-        text-decoration: none;
-    }
-
-    .info-item a:hover {
-        text-decoration: underline;
-    }
-
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .form-group {
-        display: flex;
-        flex-direction: column;
-    }
-
-    label {
-        font-weight: bold;
-        margin-bottom: 5px;
-        color: #333;
-    }
-
-    input, textarea {
-        padding: 10px;
-        font-size: 1rem;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    button {
-        padding: 10px;
-        background-color: #007bff;
-        color: white;
-        font-size: 1rem;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background-color: #0056b3;
-    }
-
-    /* ניגודיות גבוהה */
-    body.high-contrast {
-        background-color: #000 !important;
-        color: #fff !important;
-    }
-
-    body.high-contrast a,
-    body.high-contrast button,
-    body.high-contrast input,
-    body.high-contrast textarea,
-    body.high-contrast label {
-        background-color: #000 !important;
-        color: #fff !important;
-        border: 1px solid #fff !important;
-    }
-
-    body.high-contrast h1, body.high-contrast h2, body.high-contrast h3 {
-        color: #ffff00 !important;
-    }
-</style>
 {% endblock %}
 
 {% block extra_script %}
 <script>
     let currentFontSize = 1;
 
+    function toggleContrast() {
+        document.body.classList.toggle('high-contrast');
+        localStorage.setItem("highContrast", document.body.classList.contains('high-contrast') ? "true" : "false");
+    }
+
     function increaseFontSize() {
-        if (currentFontSize < 2) {
+        if (currentFontSize < 1.5) {
             currentFontSize += 0.1;
             document.body.style.fontSize = currentFontSize + "em";
             localStorage.setItem("fontSize", currentFontSize);
@@ -212,29 +288,21 @@
 
     function resetFontSize() {
         currentFontSize = 1;
-        document.body.style.fontSize = "1em";
+        document.body.style.fontSize = "";
         localStorage.removeItem("fontSize");
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const toggleBtn = document.getElementById('contrast-toggle');
-        if (toggleBtn) {
-            toggleBtn.addEventListener('click', function () {
-                document.body.classList.toggle('high-contrast');
-                const isActive = document.body.classList.contains('high-contrast');
-                localStorage.setItem("highContrast", isActive ? "true" : "false");
-            });
-        }
-
-        // Restore contrast setting
+    document.addEventListener('DOMContentLoaded', function() {
+        // Restore high contrast mode if previously set
         if (localStorage.getItem("highContrast") === "true") {
-            document.body.classList.add("high-contrast");
+            document.body.classList.add('high-contrast');
         }
 
-        const savedSize = parseFloat(localStorage.getItem("fontSize"));
-        if (!isNaN(savedSize)) {
-            currentFontSize = savedSize;
-            document.body.style.fontSize = savedSize + "em";
+        // Restore font size if previously set
+        const savedFontSize = localStorage.getItem("fontSize");
+        if (savedFontSize) {
+            currentFontSize = parseFloat(savedFontSize);
+            document.body.style.fontSize = currentFontSize + "em";
         }
     });
 </script>

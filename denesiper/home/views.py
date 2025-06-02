@@ -29,8 +29,6 @@ def add_lawyer(request):
         form = LawyerForm()
     return render(request, 'home/add_lawyer.html', {'form': form})
 
-from django.db.models import Q
-
 def lawyer_list(request):
     form = LawyerSearchForm(request.GET)  # קבלת הנתונים מהטופס
     lawyers = Lawyer.objects.all()  # שליפת כל עורכי הדין

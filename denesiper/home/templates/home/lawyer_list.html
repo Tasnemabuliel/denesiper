@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-{% include 'home/navbar.html' %}
+{% extends 'home/base_generic.html' %}
 {% load static %}
 
 {% block title %}Our Lawyers{% endblock %}
@@ -35,7 +35,9 @@
   }
 </script>
 
-    <h2>Find the Right Lawyer for Your Needs</h2>
+    <!-- Change [REQ-9] -->
+    <h1>Our Lawyers</h1>  <!-- Add h1 -->
+    <h2>Find the Right Lawyer</h2>  <!-- Demote existing h2 -->
     <form method="get" action="{% url 'lawyer-list' %}" class="search-bar">
         {% csrf_token %}
         <input type="text" name="name" placeholder="Search by name" value="{{ request.GET.name }}">
