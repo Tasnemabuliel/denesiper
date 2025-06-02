@@ -454,6 +454,40 @@ footer {
     text-align: center;
     margin-top: 50px;
 }
+footer {
+    background-color: #1e293b;
+    color: #f8fafc;
+    padding: 20px 0;
+    text-align: center;
+}
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 3px solid #38f88b;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+/* وضع التباين العالي */
+.high-contrast {
+    background-color: #000 !important;
+    color: #FFD700 !important;
+}
+
+.high-contrast a,
+.high-contrast button {
+    background-color: #000 !important;
+    color: #FFD700 !important;
+    border: 2px solid #FFD700 !important;
+}
+
+.high-contrast header,
+.high-contrast nav,
+.high-contrast footer {
+    background-color: #000 !important;
+    color: #FFD700 !important;
+}
 
 /* ===== Responsive Design ===== */
 @media (max-width: 768px) {
